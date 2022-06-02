@@ -11,6 +11,16 @@ const db = mysql.createConnection(
     }
 );
 
+const initDb = () => {
+    db.connect((err) => {
+      if (err) throw err;
+      console.log("connected to the database");
+      console.log("Welcome to the employee management system");
+    });
+  };
+  
+initDb();
+
 const options = [
     {
         type: 'list',
@@ -55,8 +65,8 @@ showOptions = () => {
                     addEmployee();
                 } else if (data.options === 'Update an employee role') {
                     updateEmployee();
-                } else {
-                    console.log('Bye!');
+                } else if (data.options === 'Quit') {
+                    closeApp();
                 }
         });
 };
@@ -71,6 +81,7 @@ viewDepartments = async () => {
         console.log(cTable.getTable(result));
     })
     });
+    showOptions();
 };
 
 viewRoles = () => {
@@ -83,6 +94,7 @@ viewRoles = () => {
         console.log(cTable.getTable(result));
     })
     });
+    showOptions();
 };
 
 viewEmployees = () => {
@@ -101,6 +113,7 @@ viewEmployees = () => {
             console.log(cTable.getTable(result));
         })
     });
+    showOptions();
 };
 
 addDepartment = () => {
@@ -293,4 +306,8 @@ updateEmployee = () => {
     });
 };
 
+closeApp = () => {
+    console.log("Thank you, goodbye.");
+  };
+  
 showOptions();
